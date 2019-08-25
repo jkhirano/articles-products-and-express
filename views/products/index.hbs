@@ -1,0 +1,22 @@
+<h1>Products</h1>
+
+<div>
+    <a href='/products/new'><button>Add Product</button></a><br><br>
+
+    <div>{{#if error}}</div>
+    {{error.errorMessage}}
+    {{/if}}
+
+    {{#each products }}
+    <div>Item: {{ name }}</div>
+    <div>Price: ${{ price }}</div>
+    <div>Inventory: {{ inventory }}</div>
+    <div>ID: {{ id }}</div>
+    <a href="/products/{{id}}/edit"> <button>Edit Product</button></a><br><br>
+    {{/each}}
+
+
+
+
+
+</div>

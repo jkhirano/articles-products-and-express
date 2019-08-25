@@ -1,31 +1,71 @@
 let productList = [
-  {
-    id: 1,
-    name: "Bacon",
-    price: 5,
-    inventory: 10
-  }
+  // {
+  //   id: 1,
+  //   name: "Bacon",
+  //   price: 5,
+  //   inventory: 10
+  // }
 ];
 
 let productId = 2;
 
-function all() {
+function getAll() {
   return productList;
 }
 
-function add(name, price, inventory) {
+function addProduct(name, price, inventory) {
+  if (!isNaN(name) || isNaN(price) || isNaN(inventory)) {
+    return false;
+  }
+
   let product = {};
   product.id = productId++;
   product.name = name;
-  product.price = Number(price);
-  product.inventory = Number(inventory);
+  product.price = parseInt(price);
+  product.inventory = parseInt(inventory);
   productList.push(product);
   return product;
 }
 
+function getProduct(id) {
+  let productId = id;
+  // console.log(productId);
+  let product = productList.find(item => {
+    return item.id === parseInt(productId);
+  });
+  // console.log(product);
+  return product;
+
+  // if (productId < )
+}
+
+function editProduct(id, data) {
+  let product = getProduct(id);
+  // console.log(product);
+
+  if (!product) {
+    return false;
+  }
+
+  for (var key in data) {
+    product[key] = data[key];
+  }
+}
+
+function deleteProduct(id) {
+  if (!product) {
+    false;
+  }
+  productList = productList.filter(current => {
+    return current.id !== parseInt(id);
+  });
+  return getAll();
+}
+
 module.exports = {
-  all,
-  add
-  // getByTitle: _getByTitle,
-  // editByTitle: _editByTitle
+  getAll,
+  addProduct,
+  getProduct,
+  editProduct,
+  deleteProduct
 };

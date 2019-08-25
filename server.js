@@ -6,6 +6,8 @@ const exphbs = require("express-handlebars");
 // creates new instance of express
 const app = express();
 const productsRoutes = require("./routes/products");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 const PORT = 8080;
 

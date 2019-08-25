@@ -1,0 +1,12 @@
+<h1>Edit Product Here</h1>
+<div>{{message}}</div>
+<form method="POST" action="/products/{{products.id}}?_method=PUT">
+    Item:<br>
+    <input type="text" value="{{products.name}}" name="name"><br>
+    Price:<br>
+    <input type="text" value="{{products.price}}" name="price"><br>
+    Inventory:<br>
+    <input type="text" value="{{products.inventory}}" name="inventory"><br>
+    <button type="submit">Edit</button>
+    <a href="/products/{{id}}/edit"> <button>Edit Product</button></a><br><br>
+</form>

@@ -1,0 +1,8 @@
+<h1>Product</h1>
+<div>Item: {{products.name}}</div>
+<div>Price: ${{products.price}}</div>
+<div>Inventory: {{products.inventory}}</div>
+<div>ID: {{products.id}} </div>
+<form method="POST" action="/products/{{products.id}}?_method=DELETE">
+    <button type="submit">Delete</button>
+</form>

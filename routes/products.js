@@ -5,55 +5,69 @@ const router = express.Router();
 const collection = require("../db/products.js");
 // console.log(">> collection: ", collection.all());
 
+// GET - RETURNS THE ENTIRE PRODUCTLIST
 // localhost:8080/products
-// returns the entire productList
 router.get("/", (req, res) => {
-  let allProducts = collection.all();
-  // res.render = handlebar installation
-  res.render("products", { products: allProducts });
+  let allProducts = collection.getAll();
+  let msg = {};
+
+  if (allProducts.length < 1) {
+    msg.errorMessage = "No products available";
+  }
+  res.render("products/index", { products: allProducts, error: msg });
 });
 
-// localhost:8080/products
-// adds a new item to the productList
-// products.add({ ...});
-router.post("/", (req, res) => {
-  console.log(req.body);
-  let body = req.body;
-  let adddProducts = collection.add(body.name, body.price, body.inventory);
-  //   if (
-  //     typeof name === "string" ||
-  //     typeof price === "number" ||
-  //     typeof inventory === "number"
-  //   ) {
-  //     res.redirect("/products");
-  //   } else {
-  //     res.redirect("/products/new");
-  //   }
-  res.send("Product added!");
+// GET - RETURNS TEMPLATE FOR CREATING NEW PRODUCT
+router.get("/new", (req, res) => {
+  res.render("products/new", {});
 });
 
-// returns the correct object from the productList
-// products.getByTitle
+// GET - RETURNS ITEM BY ID
 router.get("/:id", (req, res) => {
-  //
+  let productId = req.params.id;
+  let product = collection.getProduct(productId);
+  res.render("products/product", { products: product });
 });
 
-// finds an article in the collection by its title, if found - updates the article based on object passed as the second parameter then returns `true`
-// in the example below, it would change the title.
-// if the article is not found, returns `false`
-// products.editByTitle("The%20Best%20Magpie%20Developer%20of%202016", {
-//   title: "..."
-// });
+// GET - RETURNS TEMPLATE FOR EDITING PRODUCT
+router.get("/:id/edit", (req, res) => {
+  let productId = req.params.id;
+  let product = collection.getProduct(productId);
+  res.render("products/edit", { products: product });
+});
 
+// POST - ADDS A NEW ITEM (OBJ) TO THE PRODUCTLIST
+// localhost:8080/products
+router.post("/", (req, res) => {
+  let body = req.body;
+  let addProducts = collection.addProduct(
+    body.name,
+    body.price,
+    body.inventory
+  );
+  let msg = {};
+  //   console.log(req.body);
+  if (!isNaN(body.name) || isNaN(body.price) || isNaN(body.inventory)) {
+    res.redirect("/products/new");
+  } else {
+    res.redirect("/products");
+  }
+});
+
+// PUT - EDITS AN ITEM (OBJ)
+router.put("/:id", (req, res) => {
+  let product = collection.getProduct(req.params.id);
+  //   console.log(product);
+  //   console.log(req.body);
+  collection.editProduct(req.params.id, req.body);
+  res.redirect(`/products/${req.params.id}`);
+});
+
+// DELETE - DELETES AN ITEM (OBJ) BY ID
 //localhost:8080/products/:id
 router.delete("/:id", (req, res) => {
-  //   console.log(req.params.id);
-  products = products.filter(current => {
-    return current !== req.params.id;
-  });
-  //   console.log(products);
-
-  res.send(products);
+  collection.deleteProduct(req.params.id);
+  res.redirect("/products");
 });
 
 module.exports = router;
