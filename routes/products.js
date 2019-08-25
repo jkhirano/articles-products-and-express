@@ -45,8 +45,8 @@ router.post("/", (req, res) => {
     body.price,
     body.inventory
   );
-  let msg = {};
   //   console.log(req.body);
+
   if (!isNaN(body.name) || isNaN(body.price) || isNaN(body.inventory)) {
     res.redirect("/products/new");
   } else {

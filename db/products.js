@@ -1,13 +1,6 @@
-let productList = [
-  // {
-  //   id: 1,
-  //   name: "Bacon",
-  //   price: 5,
-  //   inventory: 10
-  // }
-];
+let productList = [];
 
-let productId = 2;
+let productId = 1;
 
 function getAll() {
   return productList;
@@ -35,8 +28,6 @@ function getProduct(id) {
   });
   // console.log(product);
   return product;
-
-  // if (productId < )
 }
 
 function editProduct(id, data) {
