@@ -7,9 +7,9 @@ function getAll() {
 }
 
 function addProduct(name, price, inventory) {
-  if (!isNaN(name) || isNaN(price) || isNaN(inventory)) {
-    return false;
-  }
+  // if (!isNaN(name) || isNaN(price) || isNaN(inventory)) {
+  //   return false;
+  // }
 
   let product = {};
   product.id = productId++;

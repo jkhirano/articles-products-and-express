@@ -17,9 +17,15 @@ router.get("/", (req, res) => {
   res.render("products/index", { products: allProducts, error: msg });
 });
 
+let msg = {};
+
 // GET - RETURNS TEMPLATE FOR CREATING NEW PRODUCT
 router.get("/new", (req, res) => {
-  res.render("products/new", {});
+  if (!msg) {
+    res.render("products/new", { error: msg });
+  } else {
+    res.render("products/new", { error: msg });
+  }
 });
 
 // GET - RETURNS ITEM BY ID
@@ -40,16 +46,19 @@ router.get("/:id/edit", (req, res) => {
 // localhost:8080/products
 router.post("/", (req, res) => {
   let body = req.body;
+  //   console.log(req.body);
   let addProducts = collection.addProduct(
     body.name,
     body.price,
     body.inventory
   );
-  //   console.log(req.body);
 
-  if (!isNaN(body.name) || isNaN(body.price) || isNaN(body.inventory)) {
+  //   if (!isNaN(body.name) || isNaN(body.price) || isNaN(body.inventory)) {
+  if (!req.body.name) {
     res.redirect("/products/new");
+    msg.errorMessage = "Missing product name.";
   } else {
+    msg = {};
     res.redirect("/products");
   }
 });

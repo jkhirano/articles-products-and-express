@@ -3,6 +3,9 @@
 <div>Price: ${{products.price}}</div>
 <div>Inventory: {{products.inventory}}</div>
 <div>ID: {{products.id}} </div>
+
+<a href="/products/{{id}}/edit"> <button>Edit Product</button></a>
+
 <form method="POST" action="/products/{{products.id}}?_method=DELETE">
     <button type="submit">Delete</button>
 </form>
