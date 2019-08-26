@@ -39,7 +39,13 @@ router.get("/:id", (req, res) => {
 router.get("/:id/edit", (req, res) => {
   let productId = req.params.id;
   let product = collection.getProduct(productId);
-  res.render("products/edit", { products: product });
+  //   res.render("products/edit", { products: product });
+
+  if (!msg) {
+    res.render("products/edit", { products: product, error: msg });
+  } else {
+    res.render("products/edit", { products: product, error: msg });
+  }
 });
 
 // POST - ADDS A NEW ITEM (OBJ) TO THE PRODUCTLIST
@@ -47,29 +53,37 @@ router.get("/:id/edit", (req, res) => {
 router.post("/", (req, res) => {
   let body = req.body;
   //   console.log(req.body);
-  let addProducts = collection.addProduct(
-    body.name,
-    body.price,
-    body.inventory
-  );
 
-  //   if (!isNaN(body.name) || isNaN(body.price) || isNaN(body.inventory)) {
-  if (!req.body.name) {
+  if (!req.body.name || !req.body.price || !req.body.inventory) {
     res.redirect("/products/new");
-    msg.errorMessage = "Missing product name.";
+    msg.errorMessage = "Error: Please complete all sections.";
   } else {
     msg = {};
+    let addProducts = collection.addProduct(
+      body.name,
+      body.price,
+      body.inventory
+    );
     res.redirect("/products");
   }
 });
 
 // PUT - EDITS AN ITEM (OBJ)
 router.put("/:id", (req, res) => {
+  let body = req.body;
   let product = collection.getProduct(req.params.id);
   //   console.log(product);
   //   console.log(req.body);
-  collection.editProduct(req.params.id, req.body);
-  res.redirect(`/products/${req.params.id}`);
+
+  if (!req.body.name || !req.body.price || !req.body.inventory) {
+    res.redirect(`/products/${req.params.id}/edit`);
+    msg.eMessage =
+      "Error: Changes could not be saved. Please complete all sections.";
+  } else {
+    msg = {};
+    collection.editProduct(req.params.id, req.body);
+    res.redirect(`/products/${req.params.id}`);
+  }
 });
 
 // DELETE - DELETES AN ITEM (OBJ) BY ID

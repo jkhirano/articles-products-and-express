@@ -1,8 +1,9 @@
-<h1>Create New Product Here</h1>
-{{!-- <div>{{message}}</div> --}}
+<h1>Add New Product</h1>
+
 <div>{{#if error}}</div>
 {{error.errorMessage}}
-{{/if}}
+{{/if}}<br>
+
 <form method="POST" action="/products">
     Item:<br>
     <input type="text" name="name" id="name"><br>
@@ -11,4 +12,6 @@
     Inventory:<br>
     <input type="text" name="inventory" id="inventory" placeholder="0"><br>
     <button type="submit">Submit</button>
+    <br><br>
+    <a href="/products/">Return to Products Page</a>
 </form>

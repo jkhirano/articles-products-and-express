@@ -4,8 +4,11 @@
 <div>Inventory: {{products.inventory}}</div>
 <div>ID: {{products.id}} </div>
 
-<a href="/products/{{id}}/edit"> <button>Edit Product</button></a>
+<a href="/products/{{products.id}}/edit"> <button>Edit Item</button></a>
 
 <form method="POST" action="/products/{{products.id}}?_method=DELETE">
-    <button type="submit">Delete</button>
+    <button type="submit">Delete Item</button>
+    <br><br>
+
+    <a href="/products/">Return to Products Page</a>
 </form>

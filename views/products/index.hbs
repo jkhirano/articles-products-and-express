@@ -8,15 +8,10 @@
     {{/if}}
 
     {{#each products }}
-    <div>Item: {{ name }}</div>
+    <div>Item: <a href='/products/{{id}}'>{{ name }}</a></div>
     <div>Price: ${{ price }}</div>
     <div>Inventory: {{ inventory }}</div>
     <div>ID: {{ id }}</div>
-    <a href="/products/{{id}}/edit"> <button>Edit Product</button></a><br><br>
+    <a href="/products/{{id}}/edit"> <button>Edit Item</button></a><br><br>
     {{/each}}
-
-
-
-
-
 </div>

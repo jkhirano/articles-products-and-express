@@ -43,7 +43,7 @@ function editProduct(id, data) {
   }
 }
 
-function deleteProduct(id) {
+function deleteProduct(id, product) {
   if (!product) {
     false;
   }
